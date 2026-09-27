@@ -1,0 +1,66 @@
+.shopping-card {
+	padding: 18px;
+	border-radius: 20px;
+	background: #fff;
+	border: 1px solid #e2e8f0;
+	display: grid;
+	gap: 16px;
+}
+
+.shopping-card-top {
+	display: flex;
+	justify-content: space-between;
+	gap: 12px;
+	align-items: start;
+}
+
+.shopping-card h3 {
+	font-size: 1.2rem;
+	margin-bottom: 4px;
+}
+
+.shopping-meta,
+.shopping-details {
+	color: #526074;
+}
+
+.shopping-details {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 10px;
+	font-size: 0.95rem;
+}
+
+.status-badge {
+	padding: 6px 10px;
+	border-radius: 999px;
+	font-size: 0.82rem;
+	font-weight: 700;
+}
+
+.status-pending {
+	background: rgba(239, 68, 68, 0.1);
+	color: #b91c1c;
+}
+
+.status-purchased {
+	background: rgba(16, 185, 129, 0.12);
+	color: #047857;
+}
+
+.card-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+@media (max-width: 640px) {
+	.shopping-details {
+		grid-template-columns: 1fr;
+	}
+
+	.shopping-card-top {
+		flex-direction: column;
+		align-items: start;
+	}
+}

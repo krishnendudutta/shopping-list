@@ -1,0 +1,9 @@
+.items-grid {
+	display: grid;
+	gap: 16px;
+}
+
+.empty-panel {
+	padding: 18px 4px;
+	color: #526074;
+}

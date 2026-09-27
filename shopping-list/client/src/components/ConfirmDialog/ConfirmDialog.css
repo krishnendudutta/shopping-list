@@ -1,0 +1,44 @@
+.dialog-backdrop {
+	position: fixed;
+	inset: 0;
+	background: rgba(15, 23, 42, 0.45);
+	display: grid;
+	place-items: center;
+	padding: 16px;
+	z-index: 20;
+}
+
+.dialog-card {
+	width: min(100%, 480px);
+	background: #fff;
+	border-radius: 22px;
+	padding: 22px;
+	box-shadow: 0 30px 60px rgba(15, 23, 42, 0.24);
+	display: grid;
+	gap: 14px;
+}
+
+.dialog-card h3 {
+	font-size: 1.2rem;
+}
+
+.dialog-card p {
+	color: #526074;
+}
+
+.dialog-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 12px;
+	flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+	.dialog-actions {
+		justify-content: stretch;
+	}
+
+	.dialog-actions .button {
+		flex: 1;
+	}
+}

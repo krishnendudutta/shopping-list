@@ -1,0 +1,6 @@
+.empty-state {
+	display: grid;
+	gap: 8px;
+	padding: 10px 0;
+	color: #526074;
+}
