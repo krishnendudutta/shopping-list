@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ConfirmDialog from "./components/ConfirmDialog";
+import Logo from "./components/Logo";
 import LoadingState from "./components/LoadingState";
 import ShoppingFilters from "./components/ShoppingFilters";
 import ShoppingItemForm from "./components/ShoppingItemForm";
@@ -185,17 +186,24 @@ function App() {
 		<main className="app-shell">
 			<div className="page-shell">
 				<header className="page-header">
-					<div>
+					<div className="hero-copy">
+						<Logo />
 						<p className="eyebrow">Shopping List Manager</p>
-						<h1>Student Shopping List</h1>
+						<h1>Your Shopping List</h1>
 						<p className="description">
 							Add items, edit them, mark them purchased, and keep
 							track of the shopping plan in one simple place.
 						</p>
+						<div className="hero-chips">
+							<span>Fast item tracking</span>
+							<span>Clear weekly planning</span>
+							<span>Simple shopping workflow</span>
+						</div>
 					</div>
 					<div className="summary-pill">
 						<span>Total items</span>
 						<strong>{shoppingItems.length}</strong>
+						<small>Planned from your current filters</small>
 					</div>
 				</header>
 
