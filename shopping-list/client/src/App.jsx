@@ -24,6 +24,16 @@ const emptyFilters = {
 };
 
 function App() {
+	const today = new Date();
+	const dayLabel = new Intl.DateTimeFormat(undefined, {
+		weekday: "long",
+	}).format(today);
+	const dateLabel = new Intl.DateTimeFormat(undefined, {
+		month: "long",
+		day: "numeric",
+		year: "numeric",
+	}).format(today);
+
 	const [shoppingItems, setShoppingItems] = useState([]);
 	const [selectedItem, setSelectedItem] = useState(null);
 	const [deleteTarget, setDeleteTarget] = useState(null);
@@ -186,18 +196,31 @@ function App() {
 		<main className="app-shell">
 			<div className="page-shell">
 				<header className="page-header">
-					<div className="hero-copy">
+					<div className="brand-row">
 						<Logo />
-						<p className="eyebrow">Shopping List Manager</p>
-						<h1>Your Shopping List</h1>
-						<p className="description">
-							Add items, edit them, mark them purchased, and keep
-							track of the shopping plan in one simple place.
-						</p>
-						<div className="hero-chips">
-							<span>Fast item tracking</span>
-							<span>Clear weekly planning</span>
-							<span>Simple shopping workflow</span>
+						<div
+							className="date-card"
+							aria-label="Today\'s date and day"
+						>
+							<span>{dayLabel}</span>
+							<strong>{dateLabel}</strong>
+							<p>Shop smart, save time, stay ready.</p>
+						</div>
+					</div>
+					<div className="header-stack">
+						<div className="hero-copy">
+							<p className="eyebrow">Shopping List Manager</p>
+							<h1>Your Shopping List</h1>
+							<p className="description">
+								Add items, edit them, mark them purchased, and
+								keep track of the shopping plan in one simple
+								place.
+							</p>
+							<div className="hero-chips">
+								<span>Fast item tracking</span>
+								<span>Clear weekly planning</span>
+								<span>Simple shopping workflow</span>
+							</div>
 						</div>
 					</div>
 					<div className="summary-pill">

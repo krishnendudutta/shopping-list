@@ -73,7 +73,8 @@ button {
 .page-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
   gap: 20px;
   padding: 22px 24px;
   border-radius: 28px;
@@ -116,6 +117,54 @@ h1 {
   gap: 12px;
 }
 
+.header-stack {
+	flex: 1 1 520px;
+	min-width: 0;
+	display: grid;
+	gap: 12px;
+}
+
+.brand-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+  width: 100%;
+  flex: 0 0 100%;
+}
+
+.date-card {
+  display: grid;
+  gap: 4px;
+  padding: 0;
+  min-width: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  text-align: right;
+  margin-left: auto;
+}
+
+.date-card span {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--sl-primary);
+}
+
+.date-card strong {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--sl-text);
+}
+
+.date-card p {
+  font-size: 0.9rem;
+  color: var(--sl-muted);
+}
+
 .hero-chips {
   display: flex;
   flex-wrap: wrap;
@@ -129,6 +178,31 @@ h1 {
   color: #22315e;
   font-size: 0.88rem;
   font-weight: 600;
+}
+
+@media (max-width: 720px) {
+  .page-header {
+    align-items: flex-start;
+  }
+
+	.header-stack {
+		width: 100%;
+	}
+
+	.brand-row {
+		flex-basis: 100%;
+	}
+
+  .brand-row {
+    align-items: flex-start;
+  }
+
+  .date-card {
+    text-align: left;
+    min-width: 0;
+    width: 100%;
+    margin-left: 0;
+  }
 }
 
 .summary-pill {
