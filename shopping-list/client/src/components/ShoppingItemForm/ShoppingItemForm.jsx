@@ -42,11 +42,22 @@ function ShoppingItemForm({ selectedItem, onSave, onCancel, isSaving }) {
 			...currentErrors,
 			[name]: "",
 		}));
-		setFormData((currentForm) => ({
-			...currentForm,
-			[name]:
-				name === "quantity" || name === "cost" ? Number(value) : value,
-		}));
+		if (name === "quantity" || name === "cost") {
+			const isCompleteNumber = /^-?\d+(\.\d+)?$/.test(value);
+			setFormData((currentForm) => ({
+				...currentForm,
+				[name]: value === ""
+					? 0
+					: isCompleteNumber
+						? Number(value)
+						: value,
+			}));
+		} else {
+			setFormData((currentForm) => ({
+				...currentForm,
+				[name]: value,
+			}));
+		}
 	};
 
 	const handleSubmit = (event) => {
@@ -132,9 +143,8 @@ function ShoppingItemForm({ selectedItem, onSave, onCancel, isSaving }) {
 					<input
 						className={formErrors.cost ? "input-error" : ""}
 						name="cost"
-						type="number"
-						min="0"
-						step="0.01"
+						type="text"
+						inputMode="decimal"
 						value={formData.cost}
 						onChange={handleChange}
 						required
