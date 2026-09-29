@@ -13,7 +13,13 @@ const emptyForm = {
 	date: new Date().toISOString().slice(0, 10),
 };
 
-function ShoppingItemForm({ selectedItem, onSave, onCancel, isSaving }) {
+function ShoppingItemForm({
+	selectedItem,
+	onSave,
+	onCancel,
+	isSaving,
+	resetTrigger,
+}) {
 	const [formData, setFormData] = useState(emptyForm);
 	const [formErrors, setFormErrors] = useState({});
 
@@ -34,7 +40,7 @@ function ShoppingItemForm({ selectedItem, onSave, onCancel, isSaving }) {
 		} else {
 			setFormData(emptyForm);
 		}
-	}, [selectedItem]);
+	}, [selectedItem, resetTrigger]);
 
 	const handleChange = (event) => {
 		const { name, value } = event.target;

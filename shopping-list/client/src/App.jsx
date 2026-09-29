@@ -68,6 +68,7 @@ function App() {
 	const [isDeleting, setIsDeleting] = useState(false);
 	const [errorMessage, setErrorMessage] = useState("");
 	const [successMessage, setSuccessMessage] = useState("");
+	const [resetTrigger, setResetTrigger] = useState(0);
 
 	const isGuest = currentUser.id === GUEST_USER_ID;
 
@@ -191,6 +192,7 @@ function App() {
 			}
 
 			setSelectedItem(null);
+			setResetTrigger((r) => r + 1);
 			await loadShoppingItems();
 		} catch (error) {
 			setErrorMessage(error.message || "Could not save shopping item");
@@ -392,6 +394,7 @@ function App() {
 						onSave={handleSave}
 						onCancel={handleCancelEdit}
 						isSaving={isSaving}
+						resetTrigger={resetTrigger}
 					/>
 
 					<section className="panel list-panel">
