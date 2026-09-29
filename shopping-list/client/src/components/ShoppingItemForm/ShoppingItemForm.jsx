@@ -134,6 +134,7 @@ function ShoppingItemForm({ selectedItem, onSave, onCancel, isSaving }) {
 						name="cost"
 						type="number"
 						min="0"
+						step="0.01"
 						value={formData.cost}
 						onChange={handleChange}
 						required
