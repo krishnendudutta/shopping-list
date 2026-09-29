@@ -8,7 +8,10 @@ import {
 
 export const listShoppingItems = async (req, res, next) => {
 	try {
-		const { shoppingItems, count } = await getShoppingItems(req.query);
+		const { shoppingItems, count } = await getShoppingItems(
+			req.query,
+			req.userId,
+		);
 
 		res.status(200).json({
 			success: true,
@@ -22,7 +25,10 @@ export const listShoppingItems = async (req, res, next) => {
 
 export const getShoppingItem = async (req, res, next) => {
 	try {
-		const shoppingItem = await getShoppingItemById(req.params.id);
+		const shoppingItem = await getShoppingItemById(
+			req.params.id,
+			req.userId,
+		);
 
 		res.status(200).json({
 			success: true,
@@ -35,7 +41,7 @@ export const getShoppingItem = async (req, res, next) => {
 
 export const addShoppingItem = async (req, res, next) => {
 	try {
-		const shoppingItem = await createShoppingItem(req.body);
+		const shoppingItem = await createShoppingItem(req.body, req.userId);
 
 		res.status(201).json({
 			success: true,
@@ -49,7 +55,11 @@ export const addShoppingItem = async (req, res, next) => {
 
 export const editShoppingItem = async (req, res, next) => {
 	try {
-		const shoppingItem = await updateShoppingItem(req.params.id, req.body);
+		const shoppingItem = await updateShoppingItem(
+			req.params.id,
+			req.body,
+			req.userId,
+		);
 
 		res.status(200).json({
 			success: true,
@@ -63,7 +73,7 @@ export const editShoppingItem = async (req, res, next) => {
 
 export const removeShoppingItem = async (req, res, next) => {
 	try {
-		await deleteShoppingItem(req.params.id);
+		await deleteShoppingItem(req.params.id, req.userId);
 
 		res.status(200).json({
 			success: true,

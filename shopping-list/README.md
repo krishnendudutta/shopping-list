@@ -75,6 +75,13 @@ Use two Render services:
 
 If you change the backend URL later, update the frontend environment variable and redeploy the static site.
 
+## Authentication
+
+- Users can use the app without registering or logging in.
+- Anonymous usage maps to a shared seeded user account named `Unknown User`.
+- Shopping items are still stored per user account, so each signed-in user sees their own list and guest usage stays separate from registered accounts.
+- The backend requires `JWT_SECRET` and `JWT_EXPIRES_IN` to issue auth tokens.
+
 ## Health Check
 
 When the backend is running, open:

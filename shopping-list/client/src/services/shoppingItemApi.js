@@ -1,3 +1,5 @@
+import { getAuthToken } from "./authApi";
+
 const API_BASE_URL = import.meta.env.VITE_API_URL || "/api";
 
 const buildQueryString = (filters = {}) => {
@@ -26,7 +28,11 @@ const getJson = async (response) => {
 	}
 
 	if (!response.ok) {
-		throw new Error(data?.message || rawBody || "Something went wrong");
+		const error = new Error(
+			data?.message || rawBody || "Something went wrong",
+		);
+		error.status = response.status;
+		throw error;
 	}
 
 	return data || {};
@@ -34,7 +40,19 @@ const getJson = async (response) => {
 
 const fetchJson = async (url, options = {}) => {
 	try {
-		const response = await fetch(url, options);
+		const headers = {
+			...(options.headers || {}),
+		};
+		const token = getAuthToken();
+
+		if (token && !headers.Authorization) {
+			headers.Authorization = `Bearer ${token}`;
+		}
+
+		const response = await fetch(url, {
+			...options,
+			headers,
+		});
 		return await getJson(response);
 	} catch (error) {
 		throw new Error(

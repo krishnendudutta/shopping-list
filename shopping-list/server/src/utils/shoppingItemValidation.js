@@ -4,7 +4,11 @@ const validPeriods = ["day", "week", "month"];
 const isBlankString = (value) =>
 	typeof value !== "string" || value.trim().length === 0;
 
-export const normalizeShoppingItemInput = (input, existingItem = null) => {
+export const normalizeShoppingItemInput = (
+	input,
+	existingItem = null,
+	userId = null,
+) => {
 	const source = {
 		...(existingItem || {}),
 		...(input || {}),
@@ -89,6 +93,7 @@ export const normalizeShoppingItemInput = (input, existingItem = null) => {
 			period,
 			date: parsedDate,
 			purchased,
+			user: userId || existingItem?.user || null,
 		},
 	};
 };

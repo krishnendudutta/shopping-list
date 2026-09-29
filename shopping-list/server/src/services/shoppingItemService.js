@@ -77,8 +77,9 @@ const buildFilters = (query = {}) => {
 	return filters;
 };
 
-export const getShoppingItems = async (query) => {
+export const getShoppingItems = async (query, userId) => {
 	const filters = buildFilters(query);
+	filters.user = userId;
 	const shoppingItems = await ShoppingItem.find(filters).sort({
 		createdAt: -1,
 	});
@@ -89,12 +90,15 @@ export const getShoppingItems = async (query) => {
 	};
 };
 
-export const getShoppingItemById = async (shoppingItemId) => {
+export const getShoppingItemById = async (shoppingItemId, userId) => {
 	if (!mongoose.Types.ObjectId.isValid(shoppingItemId)) {
 		throw new AppError("Invalid item ID", 400);
 	}
 
-	const shoppingItem = await ShoppingItem.findById(shoppingItemId);
+	const shoppingItem = await ShoppingItem.findOne({
+		_id: shoppingItemId,
+		user: userId,
+	});
 
 	if (!shoppingItem) {
 		throw new AppError("Shopping item not found", 404);
@@ -103,8 +107,12 @@ export const getShoppingItemById = async (shoppingItemId) => {
 	return shoppingItem;
 };
 
-export const createShoppingItem = async (shoppingItemData) => {
-	const { errors, value } = normalizeShoppingItemInput(shoppingItemData);
+export const createShoppingItem = async (shoppingItemData, userId) => {
+	const { errors, value } = normalizeShoppingItemInput(
+		shoppingItemData,
+		null,
+		userId,
+	);
 
 	if (errors.length > 0) {
 		throw new AppError(errors.join(". "), 400);
@@ -114,12 +122,19 @@ export const createShoppingItem = async (shoppingItemData) => {
 	return shoppingItem;
 };
 
-export const updateShoppingItem = async (shoppingItemId, shoppingItemData) => {
+export const updateShoppingItem = async (
+	shoppingItemId,
+	shoppingItemData,
+	userId,
+) => {
 	if (!mongoose.Types.ObjectId.isValid(shoppingItemId)) {
 		throw new AppError("Invalid item ID", 400);
 	}
 
-	const existingShoppingItem = await ShoppingItem.findById(shoppingItemId);
+	const existingShoppingItem = await ShoppingItem.findOne({
+		_id: shoppingItemId,
+		user: userId,
+	});
 
 	if (!existingShoppingItem) {
 		throw new AppError("Shopping item not found", 404);
@@ -128,6 +143,7 @@ export const updateShoppingItem = async (shoppingItemId, shoppingItemData) => {
 	const { errors, value } = normalizeShoppingItemInput(
 		shoppingItemData,
 		existingShoppingItem.toObject(),
+		userId,
 	);
 
 	if (errors.length > 0) {
@@ -143,18 +159,22 @@ export const updateShoppingItem = async (shoppingItemId, shoppingItemData) => {
 	existingShoppingItem.period = value.period;
 	existingShoppingItem.date = value.date;
 	existingShoppingItem.purchased = value.purchased;
+	existingShoppingItem.user = userId;
 
 	await existingShoppingItem.save();
 
 	return existingShoppingItem;
 };
 
-export const deleteShoppingItem = async (shoppingItemId) => {
+export const deleteShoppingItem = async (shoppingItemId, userId) => {
 	if (!mongoose.Types.ObjectId.isValid(shoppingItemId)) {
 		throw new AppError("Invalid item ID", 400);
 	}
 
-	const shoppingItem = await ShoppingItem.findByIdAndDelete(shoppingItemId);
+	const shoppingItem = await ShoppingItem.findOneAndDelete({
+		_id: shoppingItemId,
+		user: userId,
+	});
 
 	if (!shoppingItem) {
 		throw new AppError("Shopping item not found", 404);
